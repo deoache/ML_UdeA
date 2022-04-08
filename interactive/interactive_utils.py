@@ -3,10 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()
 import scipy.integrate as integrate
 import scipy.stats as stats
-import ipywidgets as widgets
 
 
-# generate one-dimensional probability distributions for a binary classifier
 def get_xlims(mean, sigma=0.082):
   """compute normal distribution x limits"""
   xmin = mean - 3 * sigma
