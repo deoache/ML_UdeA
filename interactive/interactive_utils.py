@@ -112,13 +112,18 @@ def get_positive_rates(pos_dist_mean, neg_dist_mean, threshold):
   return fpr, tpr
 
 def plot_roc_curve(pos_dist_mean, neg_dist_mean, ax):
+  # false and positive rates
   threshold = np.linspace(0, 1)
   fpr, tpr = get_positive_rates(pos_dist_mean, neg_dist_mean, threshold)
   
+  # area under the curve
+  auc = np.trapz(tpr, fpr)
+
   ax.set(
       title="ROC Curve", 
       xlabel="False positive rate", 
       ylabel="True positive rate"
       )
   ax.plot([0, 1], [0, 1], "k--")
-  ax.plot(fpr, tpr, "r")
+  ax.plot(fpr, tpr, "r", label=f"AUC {auc:.2f}")
+  ax.legend()
