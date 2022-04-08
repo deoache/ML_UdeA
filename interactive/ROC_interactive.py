@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()
 
-from interactive.utils import (
+from interactive_utils import (
     plot_probability_distributions, 
     plot_roc_curve
     )
