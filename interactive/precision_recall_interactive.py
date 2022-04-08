@@ -5,7 +5,6 @@ import seaborn as sns; sns.set()
 
 def precision_recall_viz(treshold=0):
   # one-dimensional data for a binary classification
-  np.random.seed(10)
   positive_class = pd.DataFrame(dict(x=np.linspace(-3, 10, 10), y=np.ones(10, dtype=int)))
   negative_class = pd.DataFrame(dict(x=np.linspace(-10, 3, 10), y=np.zeros(10, dtype=int)))
 
