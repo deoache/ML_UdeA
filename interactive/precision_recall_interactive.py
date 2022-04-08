@@ -39,5 +39,5 @@ def precision_recall_viz(treshold=0):
   plt.axvspan(treshold, 11, alpha=0.2)
   plt.axvspan(-11, treshold, alpha=0.2, color="darkorange")
   
-  plt.axis([-11, 11, -2, 3])
+  plt.axis([-(n + 1), n + 1, -2, 3])
   plt.legend()
