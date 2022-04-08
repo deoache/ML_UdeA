@@ -30,7 +30,7 @@ def fill_region(mean, min, max, sigma=0.082, label=None, color=None, ax=None):
   y = stats.norm.pdf(x, mean, sigma)
   ax.fill_between(x, y, facecolor=color, alpha=0.2, label=label)
 
-def fill_false_regions(pos_dist_mean, neg_dist_mean, treshold=0.5, ax=None):
+def fill_false_regions(pos_dist_mean, neg_dist_mean, threshold=0.5, ax=None):
   """plot false and positive regions"""
   _, pos_dist_max = get_xlims(pos_dist_mean)
   neg_dist_min, _ = get_xlims(neg_dist_mean)
@@ -38,27 +38,27 @@ def fill_false_regions(pos_dist_mean, neg_dist_mean, treshold=0.5, ax=None):
   pos_dist_x, pos_dist = get_normal_dist(pos_dist_mean) 
   neg_dist_x, neg_dist = get_normal_dist(neg_dist_mean)
 
-  if neg_dist_min < treshold:
+  if neg_dist_min < threshold:
     fill_region(
         mean=neg_dist_mean, 
         min=neg_dist_min, 
-        max=treshold,
+        max=threshold,
         label="FP",
         color="r",
         ax=ax
         )
       
-  if pos_dist_max > treshold:
+  if pos_dist_max > threshold:
     fill_region(
         mean=pos_dist_mean, 
-        min=treshold, 
+        min=threshold, 
         max=pos_dist_max,
         label="FN",
         color="b",
         ax=ax
         )
 
-def plot_probability_distributions(pos_dist_mean, neg_dist_mean, treshold=0.5, ax=None):
+def plot_probability_distributions(pos_dist_mean, neg_dist_mean, threshold=0.5, ax=None):
   """
   plot one-dimensional probability distributions for a binary classifier
   """
@@ -68,10 +68,10 @@ def plot_probability_distributions(pos_dist_mean, neg_dist_mean, treshold=0.5, a
   ax.plot(pos_dist_x, pos_dist, label="Positive class")
   ax.plot(neg_dist_x, neg_dist, label="Negative class")
   ax.set_title("Probability distributions")
-  fill_false_regions(pos_dist_mean, neg_dist_mean, treshold, ax)
+  fill_false_regions(pos_dist_mean, neg_dist_mean, threshold, ax)
 
 @np.vectorize
-def get_classification_results(pos_dist_mean, neg_dist_mean, treshold):
+def get_classification_results(pos_dist_mean, neg_dist_mean, threshold):
   """compute true and false positive/negative values"""
   pos_dist_min, pos_dist_max = get_xlims(pos_dist_mean)
   neg_dist_min, neg_dist_max = get_xlims(neg_dist_mean)
@@ -80,40 +80,40 @@ def get_classification_results(pos_dist_mean, neg_dist_mean, treshold):
   auc = get_area(0, 0.5, 0.25)
   
   # positive class scenarios
-  if treshold <= pos_dist_min:
+  if threshold <= pos_dist_min:
     TP = 0
     FN = auc
-  elif treshold >= pos_dist_max:
+  elif threshold >= pos_dist_max:
     TP = auc
     FN = 0
   else:
-    TP = get_area(pos_dist_min, treshold, pos_dist_mean)
-    FN = get_area(treshold, pos_dist_max, pos_dist_mean)
+    TP = get_area(pos_dist_min, threshold, pos_dist_mean)
+    FN = get_area(threshold, pos_dist_max, pos_dist_mean)
 
   # negative class scenarios
-  if treshold <= neg_dist_min:
+  if threshold <= neg_dist_min:
     TN = auc
     FP = 0
-  elif treshold >= neg_dist_max:
+  elif threshold >= neg_dist_max:
     TN = 0
     FP = auc
   else:
-    TN = get_area(treshold, neg_dist_max, neg_dist_mean)
-    FP = get_area(neg_dist_min, treshold, neg_dist_mean)
+    TN = get_area(threshold, neg_dist_max, neg_dist_mean)
+    FP = get_area(neg_dist_min, threshold, neg_dist_mean)
 
   return TP, TN, FP, FN
 
 @np.vectorize
-def get_positive_rates(pos_dist_mean, neg_dist_mean, treshold):
+def get_positive_rates(pos_dist_mean, neg_dist_mean, threshold):
   """compute false and positive rates"""
-  TP, TN, FP, FN = get_classification_results(pos_dist_mean, neg_dist_mean, treshold)
+  TP, TN, FP, FN = get_classification_results(pos_dist_mean, neg_dist_mean, threshold)
   fpr = FP / (FP + TN + 1e-5)
   tpr = TP / (TP + FN + 1e-5)
   return fpr, tpr
 
 def plot_roc_curve(pos_dist_mean, neg_dist_mean, ax):
-  treshold = np.linspace(0, 1)
-  fpr, tpr = get_positive_rates(pos_dist_mean, neg_dist_mean, treshold)
+  threshold = np.linspace(0, 1)
+  fpr, tpr = get_positive_rates(pos_dist_mean, neg_dist_mean, threshold)
   
   ax.set(
       title="ROC Curve", 

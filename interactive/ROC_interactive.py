@@ -11,11 +11,11 @@ def roc_curve_viz(pos_dist_mean=0.25, neg_dist_mean=0.75):
   fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(25, 8))
   plot_probability_distributions(pos_dist_mean, neg_dist_mean, ax=ax1)
 
-  # treshold and decision regions
-  treshold = 0.5
-  ax1.vlines(treshold, 0, 5)
-  ax1.axvspan(0, treshold, alpha=0.1, color="blue")
-  ax1.axvspan(treshold, 1, alpha=0.1, color="darkorange")
+  # threshold and decision regions
+  threshold = 0.5
+  ax1.vlines(threshold, 0, 5)
+  ax1.axvspan(0, threshold, alpha=0.1, color="blue")
+  ax1.axvspan(threshold, 1, alpha=0.1, color="darkorange")
   ax1.axis([0, 1, 0, 5])
   ax1.legend()
 
