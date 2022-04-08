@@ -34,7 +34,7 @@ def precision_recall_viz(treshold=0):
   plt.text(-8, -1.5, f"TN: {tn} FN: {fn}", size=15)
   plt.title(f"Precision: {precision:.2f} | Recall: {recall:.2f}", size=17)
   
-  # tresholds and decision regions
+  # treshold and decision regions
   plt.vlines(treshold, -2, 3, label="Treshold")
   plt.axvspan(treshold, 11, alpha=0.2)
   plt.axvspan(-11, treshold, alpha=0.2, color="darkorange")
