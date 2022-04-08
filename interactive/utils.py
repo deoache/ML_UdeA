@@ -119,7 +119,7 @@ def plot_roc_curve(pos_dist_mean, neg_dist_mean, ax):
   
   ax.set(
       title="ROC Curve", 
-      xlabel="false positive rate", 
+      xlabel="False positive rate", 
       ylabel="True positive rate"
       )
   ax.plot([0, 1], [0, 1], "k--")
