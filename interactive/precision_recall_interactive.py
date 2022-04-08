@@ -5,18 +5,19 @@ import seaborn as sns; sns.set()
 
 def precision_recall_viz(treshold=0):
   # one-dimensional data for a binary classification
-  positive_class = pd.DataFrame(dict(x=np.linspace(-3, 10, 10), y=np.ones(10, dtype=int)))
-  negative_class = pd.DataFrame(dict(x=np.linspace(-10, 3, 10), y=np.zeros(10, dtype=int)))
+  n = 10
+  positive_class = pd.DataFrame(dict(x=np.linspace(-3, 10, n), y=np.ones(n, dtype=int)))
+  negative_class = pd.DataFrame(dict(x=np.linspace(-10, 3, n), y=np.zeros(n, dtype=int)))
 
   plt.figure(figsize=(12, 7))
   sns.scatterplot(
       x=positive_class.x, 
-      y=0.2 * np.ones(len(positive_class.x)), 
+      y=0.2 * np.ones(n), 
       label="Positive class"
       )
   sns.scatterplot(
       x=negative_class.x, 
-      y=-0.2 * np.zeros(len(negative_class.x)), 
+      y=-0.2 * np.zeros(n), 
       label="Negative class"
       )
 
