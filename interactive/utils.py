@@ -73,8 +73,8 @@ def plot_probability_distributions(pos_dist_mean, neg_dist_mean, treshold=0.5, a
   fill_false_regions(pos_dist_mean, neg_dist_mean, treshold, ax)
 
 @np.vectorize
-def get_positive_rates(pos_dist_mean, neg_dist_mean, treshold):
-  """compute false and positive rates"""
+def get_classification_results(pos_dist_mean, neg_dist_mean, treshold):
+  """compute true and false positive/negative values"""
   pos_dist_min, pos_dist_max = get_xlims(pos_dist_mean)
   neg_dist_min, neg_dist_max = get_xlims(neg_dist_mean)
     
@@ -103,7 +103,12 @@ def get_positive_rates(pos_dist_mean, neg_dist_mean, treshold):
     TN = get_area(treshold, neg_dist_max, neg_dist_mean)
     FP = get_area(neg_dist_min, treshold, neg_dist_mean)
 
-  # false and positive rates
+  return TP, TN, FP, FN
+
+@np.vectorize
+def get_positive_rates(pos_dist_mean, neg_dist_mean, treshold):
+  """compute false and positive rates"""
+  TP, TN, FP, FN = get_classification_results(pos_dist_mean, neg_dist_mean, treshold)
   fpr = FP / (FP + TN + 1e-5)
   tpr = TP / (TP + FN + 1e-5)
   return fpr, tpr
@@ -112,6 +117,10 @@ def plot_roc_curve(pos_dist_mean, neg_dist_mean, ax):
   treshold = np.linspace(0, 1)
   fpr, tpr = get_positive_rates(pos_dist_mean, neg_dist_mean, treshold)
   
-  ax.set_title("ROC Curve")
+  ax.set(
+      title="ROC Curve", 
+      xlabel="false positive rate", 
+      ylabel="True positive rate"
+      )
   ax.plot([0, 1], [0, 1], "k--")
   ax.plot(fpr, tpr, "r")
