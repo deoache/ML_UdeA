@@ -130,15 +130,19 @@ def plot_roc_curve(pos_dist_mean, neg_dist_mean, ax):
   ax.legend()
 
 ### svm soft margin utils
-def get_grid(xlim: tuple, ylim: tuple, columns: list):
+def get_grid(xlim: tuple, ylim: tuple, columns: list = None):
   """compute grid points"""
   x1_grid = np.linspace(xlim[0], xlim[1])
   x2_grid = np.linspace(ylim[0], ylim[1])
 
-  x_grid, y_grid = np.meshgrid(x1_grid, x2_grid)
-  r1, r2 = np.c_[x_grid.flatten()], np.c_[y_grid.flatten()]
-  grid = pd.DataFrame(np.hstack((r1, r2)), columns=columns)
-  return x_grid, y_grid, grid
+  xx, yy = np.meshgrid(x1_grid, x2_grid)
+  r1, r2 = np.c_[xx.flatten()], np.c_[yy.flatten()]
+  if columns:
+    grid = pd.DataFrame(np.hstack((r1, r2)), columns=columns)
+  else:
+    grid = np.hstack((r1, r2))
+    
+  return xx, yy, grid
 
 def plot_decision_regions(clf, x_grid, y_grid, grid, ax):
   z = clf.predict(grid).reshape(x_grid.shape)
