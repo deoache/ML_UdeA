@@ -17,8 +17,7 @@ from interactive_utils import (
     plot_decision_regions,
     )
 
-
-def kernel_tric_viz(dataset="blobs", kernel="linear", C=1, degree=2, coef0=1, gamma=1):
+def kernel_trick_viz(dataset="blobs", kernel="linear", C=1, degree=2, coef0=1, gamma=1):
   # data scatterplot
   n_samples = 500
   noise = 0.08
