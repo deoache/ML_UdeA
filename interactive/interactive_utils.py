@@ -135,7 +135,7 @@ def get_grid(xlim: tuple, ylim: tuple, columns: list):
   x2_grid = np.linspace(ylim[0], ylim[1])
 
   x_grid, y_grid = np.meshgrid(x1_grid, x2_grid)
-  r1, r2 = np.c_[x_grid.flatten()], np.c_[yy.flatten()]
+  r1, r2 = np.c_[x_grid.flatten()], np.c_[y_grid.flatten()]
   grid = pd.DataFrame(np.hstack((r1, r2)), columns=columns)
   return x_grid, y_grid, grid
 
