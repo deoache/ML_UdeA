@@ -13,7 +13,7 @@ from interactive_utils import (
     plot_margins
     )
 
-def interactive_svm_viz(C):
+def svm_soft_margin_viz(C):
   # data scatterplot
   penguins = sns.load_dataset("penguins")
   penguins = penguins.loc[penguins.species != "Gentoo"].dropna()
