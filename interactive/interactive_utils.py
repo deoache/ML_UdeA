@@ -137,11 +137,11 @@ def get_grid(xlim: tuple, ylim: tuple, columns: list = None):
 
   xx, yy = np.meshgrid(x1_grid, x2_grid)
   r1, r2 = np.c_[xx.flatten()], np.c_[yy.flatten()]
-  if columns:
-    grid = pd.DataFrame(np.hstack((r1, r2)), columns=columns)
-  else:
+  if columns is None:
     grid = np.hstack((r1, r2))
-    
+  else:
+    grid = pd.DataFrame(np.hstack((r1, r2)), columns=columns)
+
   return xx, yy, grid
 
 def plot_decision_regions(clf, x_grid, y_grid, grid, ax):
