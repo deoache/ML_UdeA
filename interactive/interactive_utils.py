@@ -127,3 +127,22 @@ def plot_roc_curve(pos_dist_mean, neg_dist_mean, ax):
   ax.plot([0, 1], [0, 1], "k--")
   ax.plot(fpr, tpr, "r", label=f"AUC {auc:.2f}")
   ax.legend()
+
+
+def get_grid(xlim: tuple, ylim: tuple, columns: list):
+  """compute grid points"""
+  x1_grid = np.linspace(xlim[0], xlim[1])
+  x2_grid = np.linspace(ylim[0], ylim[1])
+
+  x_grid, y_grid = np.meshgrid(x1_grid, x2_grid)
+  r1, r2 = np.c_[x_grid.flatten()], np.c_[yy.flatten()]
+  grid = pd.DataFrame(np.hstack((r1, r2)), columns=columns)
+  return x_grid, y_grid, grid
+
+def plot_decision_regions(clf, x_grid, y_grid, grid, ax):
+  z = clf.predict(grid).reshape(x_grid.shape)
+  ax.contourf(x_grid, y_grid, z, cmap='Paired', alpha=0.2)
+
+def plot_margins(clf, x_grid, y_grid, grid, ax):
+  z = clf.decision_function(grid).reshape(x_grid.shape)
+  ax.contour(x_grid, y_grid, z, colors="k", levels=[-1, 0, 1], linestyles=["--", "-", "--"], alpha=0.5)
