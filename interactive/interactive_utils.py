@@ -1,10 +1,11 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()
 import scipy.integrate as integrate
 import scipy.stats as stats
 
-
+### roc curve utils
 def get_xlims(mean, sigma=0.082):
   """compute normal distribution x limits"""
   xmin = mean - 3 * sigma
@@ -128,7 +129,7 @@ def plot_roc_curve(pos_dist_mean, neg_dist_mean, ax):
   ax.plot(fpr, tpr, "r", label=f"AUC {auc:.2f}")
   ax.legend()
 
-
+### svm soft margin utils
 def get_grid(xlim: tuple, ylim: tuple, columns: list):
   """compute grid points"""
   x1_grid = np.linspace(xlim[0], xlim[1])
