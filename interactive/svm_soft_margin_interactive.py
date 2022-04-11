@@ -19,7 +19,7 @@ def svm_soft_margin_viz(C):
   penguins = penguins.loc[penguins.species != "Gentoo"].dropna()
 
   X = penguins[["bill_length_mm", "flipper_length_mm"]]
-  y = penguins["species"].replace({"Adelie":0, "Chinstrap":1})
+  y = penguins["species"]
 
   fig, ax = plt.subplots(figsize=(10, 7))
   sns.scatterplot(x=X["bill_length_mm"], y=X["flipper_length_mm"], hue=penguins["species"], ax=ax)
