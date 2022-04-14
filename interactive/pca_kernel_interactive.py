@@ -10,7 +10,7 @@ from sklearn.datasets import load_breast_cancer
 from sklearn.decomposition import KernelPCA
 
 
-def kernel_pca_viz(standarized=True, n_components=2, kernel="linear", gamma=None, degree=2, coef0=1):
+def pca_kernel_viz(standarized=True, n_components=2, kernel="linear", gamma=None, degree=2, coef0=1):
   data = load_breast_cancer()
   X = data.data
   y = data.target
