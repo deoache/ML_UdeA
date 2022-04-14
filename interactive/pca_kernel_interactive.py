@@ -15,13 +15,11 @@ def kernel_pca_viz(standarized=True, n_components=2, kernel="linear", gamma=None
   X = data.data
   y = data.target
 
-  pca = KernelPCA(
-      n_components=n_components, 
-      kernel=kernel, 
-      gamma=gamma, 
-      degree=degree, 
-      coef0=coef0
-      )
+  pca = KernelPCA(n_components=n_components, 
+                  kernel=kernel, 
+                  gamma=gamma, 
+                  degree=degree, 
+                  coef0=coef0)
 
   X_pca = make_pipeline(StandardScaler(), pca).fit_transform(X) if standarized else pca.fit_transform(X)
 
