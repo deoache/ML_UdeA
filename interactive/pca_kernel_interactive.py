@@ -16,9 +16,13 @@ def pca_kernel_viz(kernel="linear", coef0=1, n_components=2,
   pca = KernelPCA(n_components=n_components, kernel=kernel, 
                   gamma=gamma, degree=degree, coef0=coef0)
 
-  X_pca = make_pipeline(StandardScaler(), pca).fit_transform(X) if standarized else pca.fit_transform(X)
+  X_pca = (make_pipeline(StandardScaler(), pca).fit_transform(X) 
+           if standarized 
+           else pca.fit_transform(X))
 
-  labels = {"x": "PC1", "y": "PC2"} if n_components == 2 else {"x": "PC1", "y": "PC2", "z": "PC3"}
+  labels = ({"x": "PC1", "y": "PC2"} 
+            if n_components == 2 
+            else {"x": "PC1", "y": "PC2", "z": "PC3"})
 
   if n_components == 2:
     fig = px.scatter(x=X_pca[:,0], y=X_pca[:,1], color=y, labels=labels)
