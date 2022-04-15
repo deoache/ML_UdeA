@@ -1,13 +1,13 @@
+import scipy.stats as stats
+import scipy.integrate as integrate
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 sns.set()
-import scipy.integrate as integrate
-import scipy.stats as stats
 
-### roc curve utils
+# roc curve utils
 def get_xlims(mean, sigma=0.082):
     """compute normal distribution x limits"""
     xmin = mean - 3 * sigma
@@ -25,7 +25,10 @@ def get_normal_dist(mean, sigma=0.082):
 
 def get_area(min, max, mean, sigma=0.082):
     """compute the area under a normal distribution"""
-    f = lambda x, mean: stats.norm.pdf(x, mean, sigma)
+
+    def f(x, mean):
+        return stats.norm.pdf(x, mean, sigma)
+
     area = integrate.quad(f, min, max, args=(mean))[0]
     return area
 
@@ -70,8 +73,8 @@ def plot_probability_distributions(
     pos_dist_mean, neg_dist_mean, threshold=0.5, ax=None
 ):
     """
-  plot one-dimensional probability distributions for a binary classifier
-  """
+    plot one-dimensional probability distributions for a binary classifier
+    """
     pos_dist_x, pos_dist = get_normal_dist(pos_dist_mean)
     neg_dist_x, neg_dist = get_normal_dist(neg_dist_mean)
 
@@ -138,7 +141,7 @@ def plot_roc_curve(pos_dist_mean, neg_dist_mean, ax):
     ax.legend()
 
 
-### svm soft margin utils
+# svm soft margin utils
 def get_grid(xlim: tuple, ylim: tuple, columns: list = None):
     """compute grid points"""
     x1_grid = np.linspace(xlim[0], xlim[1])
@@ -170,4 +173,3 @@ def plot_margins(clf, x_grid, y_grid, grid, ax):
         linestyles=["--", "-", "--"],
         alpha=0.5,
     )
-

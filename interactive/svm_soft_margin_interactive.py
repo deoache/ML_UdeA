@@ -1,15 +1,13 @@
+from interactive_utils import get_grid, plot_decision_regions, plot_margins
+from sklearn.pipeline import make_pipeline
+from sklearn.svm import SVC
+from sklearn.preprocessing import StandardScaler
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 sns.set()
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
-from sklearn.pipeline import make_pipeline
-
-from interactive_utils import get_grid, plot_decision_regions, plot_margins
 
 
 def svm_soft_margin_viz(C):
@@ -43,4 +41,3 @@ def svm_soft_margin_viz(C):
     ax.scatter(
         support_vectors[:, 0], support_vectors[:, 1], facecolors="none", s=60, color="k"
     )
-

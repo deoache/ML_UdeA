@@ -1,23 +1,21 @@
+from interactive_utils import (
+    get_grid,
+    plot_decision_regions,
+)
+from sklearn.datasets import (
+    make_blobs,
+    make_circles,
+    make_moons,
+)
+from sklearn.pipeline import make_pipeline
+from sklearn.svm import SVC
+from sklearn.preprocessing import StandardScaler
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 sns.set()
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
-from sklearn.pipeline import make_pipeline
-from sklearn.datasets import (
-    make_blobs,
-    make_circles,
-    make_moons,
-)
-
-from interactive_utils import (
-    get_grid,
-    plot_decision_regions,
-)
 
 
 def kernel_trick_viz(dataset="blobs", kernel="linear", C=1, degree=2, coef0=1, gamma=1):
@@ -52,4 +50,3 @@ def kernel_trick_viz(dataset="blobs", kernel="linear", C=1, degree=2, coef0=1, g
     ylim = ax.get_ylim()
     xx, yy, grid = get_grid(xlim, ylim)
     plot_decision_regions(svm_clf, xx, yy, grid, ax)
-

@@ -22,4 +22,3 @@ def decision_tree_viz(max_depth=1):
     plot_tree(
         dt_clf, feature_names=["petal_length", "petal_width"], filled=True, ax=ax2
     )
-

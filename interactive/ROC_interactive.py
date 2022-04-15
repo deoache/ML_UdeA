@@ -1,9 +1,8 @@
+from interactive_utils import plot_probability_distributions, plot_roc_curve
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 sns.set()
-
-from interactive_utils import plot_probability_distributions, plot_roc_curve
 
 
 def roc_curve_viz(pos_dist_mean=0.25, neg_dist_mean=0.75):
@@ -21,4 +20,3 @@ def roc_curve_viz(pos_dist_mean=0.25, neg_dist_mean=0.75):
 
     # ROC curve
     plot_roc_curve(pos_dist_mean, neg_dist_mean, ax=ax2)
-

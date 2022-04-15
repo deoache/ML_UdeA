@@ -40,4 +40,3 @@ def precision_recall_viz(threshold=0):
 
     plt.axis([-(n + 1), n + 1, -2, 3])
     plt.legend()
-

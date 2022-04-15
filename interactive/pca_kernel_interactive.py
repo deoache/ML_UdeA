@@ -41,4 +41,3 @@ def pca_kernel_viz(
             x=X_pca[:, 0], y=X_pca[:, 1], z=X_pca[:, 2], color=y, labels=labels
         )
     fig.show()
-
